@@ -1,0 +1,3444 @@
+SMTP GUIDE :
+
+
+----- THE GUIDE DESCRIBE THE EXECUTION PROCEDURE OF PHPMAILER FRAMEWORK, IN CONTRAST TO SMTP -----
+
+
+The execution starts with creating a new object of PhpMailer object & hence we are calling the __construct() function of PHPMailer{} class.
+$mail = new PHPMailer(true);
+The Class IS :         PHPMailer
+functionc Is :          __construct
+In which you can set the debug output type.
+inside the constructor we are checking for the Php SAPI it is using,
+if the SApI is used as 'cli' or 'cli server' then debug output is 'echo' only otherwise 'html', or other format are also possible.
+
+
+then from the mymail.php [the source file from which - the file is php miler is initialised is] i am initialising the protocol as "SMTP" 
+by calling isSMTP() method of PHPMailer{} class
+The File Is :           /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :          PHPMailer
+functionc Is :          isSMTP
+Method name Is :        PHPMailer::isSMTP
+Here i am setting the the protocol as SMTP.
+
+
+Then i am assigning the Host, Port, and Encryption method of the transaction.
+
+
+Then i am calling to the setFrom() method. Here i am validating the email address format, and than i am setting the "setfrom" variable with value 
+The Class IS :         PHPMailer
+functionc Is :         setFrom
+Method name Is :       PHPMailer::setFrom
+From this function i am calling to the has8bitChars(), validateAddress() method.
+
+
+Then from the mymail.php i am adding the recepents address by calling addAddress() function.
+The Class IS :           PHPMailer
+functionc Is :           addAddress
+Method name Is :         PHPMailer::addAddress
+from the addAddress() function i am calling to the addOrEnqueueAnAddress() function of PHPMailer{} class, in this function i am setting up all the replayto address here.
+The Class IS :           PHPMailer
+functionc Is :           addOrEnqueueAnAddress
+Method name Is :         PHPMailer::addOrEnqueueAnAddress
+From which i am calling to the has8bitChars() and addAnAddress() function.
+
+
+After that i am calling to the isHTML() method from the mymail.php and passing a argument as <false> to it, if it is not Html type then i will set the content type to text.
+The Class IS :           PHPMailer
+functionc Is :           isHTML
+Method name Is :         PHPMailer::isHTML
+
+
+After this the real mail sending function comes into action, and i am calling to the send() method of {PHPMailer} object
+$mail->send(); //sending the mail here, on the mail object{}
+The Class IS :           PHPMailer
+functionc Is :           send
+Method name Is :         PHPMailer::send
+    From here i am calling to the preSend() method of PHPMailer{} object.
+    The preSend() prepares a message to send. Now the preSend() method is calling to the setLE() method of PHPMailer{} Object. here i am checking the value of mail.add_x_header
+    The Class IS :           PHPMailer
+    functionc Is :           setLE
+    Method name Is :         PHPMailer::setLE
+        Then again from the preSend() method i am calling to the punyencodeAddress()
+        The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+        The Class IS :           PHPMailer
+        functionc Is :           punyencodeAddress
+        Method name Is :         PHPMailer::punyencodeAddress
+            Now the punyencodeAddress() method is calling to the idnSupported() method of PHPMailer{} class.
+            The Class IS :           PHPMailer
+            functionc Is :           idnSupported
+            Method name Is :         PHPMailer::idnSupported
+            In this method we are ensuring wheather methods like idn_to_ascii() & mb_convert_encoding() exists ..?
+        After that with the following method call happens : has8bitChars(), validateAddress() function from the punyencodeAddress() function.
+        After which the preSend() method's foreach loop get executed, and it calls to the punyencodeAddress() method which in turn calling to the idnSupported()
+        Now the control returns back into the preSend() method where i am calling to the alternativeExists() method of PHPMailer{} class
+        After which from the preSend() method i am calling to the setMessageType() method of PHPMailer{} class
+            The Class IS :           PHPMailer
+            functionc Is :           setMessageType
+            Method name Is :         PHPMailer::setMessageType
+            Now the setMessageType() method is calling to the alternativeExists(), inlineImageExists(), attachmentExists()
+                The Class IS :           PHPMailer
+                Method name Is :         PHPMailer::alternativeExists
+                The Class IS :           PHPMailer
+                Method name Is :         PHPMailer::inlineImageExists
+                The Class IS :           PHPMailer
+                Method name Is :         PHPMailer::attachmentExists
+        Then the function control comes back into the preSend() method, from which i am calling to the createBody() method.
+        functionc Is :           createBody
+        Method name Is :         PHPMailer::createBody
+            Now the createBody() is calling to the generateId(), setWordWrap, method.
+            functionc Is :           generateId
+            Method name Is :         PHPMailer::generateId
+            functionc Is :           setWordWrap
+            Method name Is :         PHPMailer::setWordWrap
+            Now the function call returns back into the createBody() method where we are calling to the has8bitChars() method and then setting the encoding format of message body to us-ascii.
+            Than again from the createBody() method i am calling to the hasLineLongerThanMax() & has8bitChars() method of PHPMailer{} class.
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::hasLineLongerThanMax
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::has8bitChars
+            After that the control comes back into the createBody() method & hasLineLongerThanMax() get called,
+            & then switch..case.. get executed, the following method is get called.
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::getBoundary
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::textLine
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeString
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::normalizeBreaks
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::normalizeBreaks
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::normalizeBreaks
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeString
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::getBoundary
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::textLine
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeString
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::normalizeBreaks
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::normalizeBreaks
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::normalizeBreaks
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeString
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::endBoundary
+
+            Then from the createBody() method i am calling to the isError() method.
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::isError
+            Here we are setting up the SSL & more..
+
+            Then the function call goes back, & Now from the createBody() i am calling to the createHeader() method from the preSend() method
+            Inside the createHeader() method we are setting up the from-address, add-address, replayto, ..
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::createHeader
+                Now from the createHeader() method i am calling to the rfcDate() method consicutively with headerLine() function.
+                The Class IS :           PHPMailer
+                Method name Is :         PHPMailer::rfcDate
+                The Class IS :           PHPMailer
+                Method name Is :         PHPMailer::headerLine
+
+                Then from the createHeader() method i am calling to the addrAppend() method
+                The Class IS :           PHPMailer
+                Method name Is :         PHPMailer::addrAppend
+                Now from the addrAppend() method i am calling to the addrFormat() method, Here we are imploding the email address
+            which in turn calling to the secureHeader() and encodeHeader() method
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::secureHeader
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeHeader
+            After that the control returns back into the createHeader() method, from which i am calling to the addrAppend() method
+            which is calling to the addrFormat() method, which is calling to the secureHeader() & encodeHeader() method as above
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::secureHeader
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeHeader
+            After which again from the createHeader() method i am calling to the secureHeader() & encodeHeader() method.
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::createHeader
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::secureHeader
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeHeader
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::encodeHeader
+            After which i am calling to the below functions
+            The Class IS :           PHPMailer
+            Method name Is :         PHPMailer::headerLine
+        In the above function we were working with, adding C-Slashes,encoding & multibyte support & all..
+
+    The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+    The Class IS :           PHPMailer
+    functionc Is :           createHeader
+    Method name Is :         PHPMailer::createHeader
+        After that i am calling to the serverHostname() method & isValidHost() method
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::serverHostname
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::isValidHost
+        After which i am calling to the headerLine() method of PHPMailer{} class
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::headerLine
+        After Which i am calling to the createHeader() & headerLine() method
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::createHeader
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::headerLine
+        Then i am calling to the following functions
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::createHeader
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::headerLine
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::getMailMIME
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::headerLine
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::textLine
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::getMailMIME
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::getMailMIME
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::getMailMIME
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::headerLine
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::getMailMIME
+
+
+After this from the send() method i am calling to the postSend() method of PHPMailer{} class.
+The Class IS :           PHPMailer
+Method name Is :         PHPMailer::postSend
+    From which i am calling to the smtpSend() method of PHPMailer{} class
+    The Class IS :           PHPMailer
+    Method name Is :         PHPMailer::smtpSend
+        smtpSend() method is now calling to smtpConnect() method of PHPMailer{} class
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::smtpConnect
+        than i am calling to the getSMTPInstance() method of PHPMailer{} class
+        The Class IS :           PHPMailer
+        Method name Is :         PHPMailer::getSMTPInstance
+        Here i am creating a new instance of SMTP{} class & than i am calling to the connected() method of SMTP{} class
+        The Class IS :           SMTP
+        Method name Is :         SMTP::connected
+        The Class IS :           SMTP
+        Method name Is :         SMTP::setTimeout
+        From inside the smtpConnect() method i am calling to the following methods::
+        The Class IS :           SMTP
+        Method name Is :         SMTP::setDebugLevel
+        The Class IS :           SMTP
+        Method name Is :         SMTP::setDebugOutput
+        The Class IS :           SMTP
+        Method name Is :         SMTP::setVerp
+    Then i am calling to the isValidHost() method of PHPMailer{} class
+    The Class IS :           PHPMailer
+    Method name Is :         PHPMailer::isValidHost
+After that the function call returns back into the smtpConnect() method of PHPMailer class, now from the smtpConnect() method i am calling to the connect() method of SMTP{} class
+Then again from the PHPMailer{} class i am calling to the connect() method of SMTP{} class
+The Class IS :           SMTP
+Method name Is :         SMTP::connect
+
+    From inside the connect() method i am calling to the setError() method
+    The Class IS :           SMTP
+    Method name Is :         SMTP::setError
+
+Than again from the connect method i am calling to the connected() method of SMTP{} class
+The Class IS :           SMTP
+Method name Is :         SMTP::connected
+Then again from the SMTP class i am calling to the edebug() method of SMTP{} class
+The Class IS :           SMTP
+Method name Is :         SMTP::edebug
+After which the if condition inside the connect() method is get executed and then edebug() method is get called with a message "Connection: opeaning to...".
+The Class IS :           SMTP
+Method name Is :         SMTP::connect
+The Class IS :           SMTP
+Method name Is :         SMTP::get_lines
+The Class IS :           SMTP
+Method name Is :         SMTP::get_lines
+The Class IS :           SMTP
+Method name Is :         SMTP::get_lines
+The Class IS :           SMTP
+Method name Is :         SMTP::edebug
+The Class IS :           SMTP
+Method name Is :         SMTP::edebug
+The Class IS :           SMTP
+Method name Is :         SMTP::get_lines
+The Class IS :           SMTP
+Method name Is :         SMTP::edebug
+The Class IS :           SMTP
+Method name Is :         SMTP::edebug
+
+Then the function call return back into the smtpConnect() method, from where i am calling to the serverHostname() method
+The Class IS :           PHPMailer
+Method name Is :         PHPMailer::serverHostname //Returns the localhost.localdomain if  server host is unknown
+and consequently the following method is get called
+The Class IS :           PHPMailer
+Method name Is :         PHPMailer::isValidHost
+& then from smtpConnect() method i am calling to the hello method of SMTP {} class
+    The Class IS :           SMTP
+    Method name Is :         SMTP::hello
+        Now the hello() method is calling to the sendHello() method
+        The Class IS :           SMTP
+        Method name Is :         SMTP::sendHello
+        from where i am calling to the sendHello() method and passing the ::EHLO:: command, and ::HELLO:: as fallback
+        Then the sendHello() method is calling to the sendCommand() method
+            The Class IS :           SMTP
+            Method name Is :         SMTP::sendCommand
+            & Now from the sendCommand() method, the below method is get called
+            //$this->sendCommand($hello, $hello . ' ' . $host, 250); //EHLO,EHLO $host,250
+                The Class IS :           SMTP
+                Method name Is :         SMTP::connected \\Now from the connected() method we are sending the EHLO through stream_get_meta_data() 
+                    //$this->client_send($commandstring . static::LE, $command); \\'User & Password', 'Username', 'Password'
+                    //here we are passing the command_string, and smtp line break \r\n, and the command EHLO
+                    The Class IS :           SMTP
+                    Method name Is :         SMTP::client_send
+                    The Class IS :           SMTP
+                    Method name Is :         SMTP::edebug
+
+
+
+
+
+
+
+2019-02-16 07:34:10 CLIENT -> SERVER: EHLO localhost
+
+
+
+
+
+[[[[[]]]]]
+    I am sending email from localhost,localdomain to one of the smtp client[Mail Transfer Agent : Mailgun]
+    From which i am again sending the mail to the destination.
+[[[[]]]]]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           get_lines
+Method name Is :         SMTP::get_lines
+Line No Is :             1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           setError
+Method name Is :         SMTP::setError
+Line No Is :             1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           sendHello
+Method name Is :         SMTP::sendHello
+Line No Is :             754
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             770
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             782
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           parseHelloFields
+Method name Is :         SMTP::parseHelloFields
+Line No Is :             777
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           getServerExt
+Method name Is :         SMTP::getServerExt
+Line No Is :             1068
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :           PHPMailer
+functionc Is :           smtpConnect
+Method name Is :         PHPMailer::smtpConnect
+Line No Is :             1945
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :           PHPMailer
+functionc Is :           smtpConnect
+Method name Is :         PHPMailer::smtpConnect
+Line No Is :             1948
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           startTLS
+Method name Is :         SMTP::startTLS
+Line No Is :             385
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           sendCommand
+Method name Is :         SMTP::sendCommand
+Line No Is :             891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           connected
+Method name Is :         SMTP::connected
+Line No Is :             589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           connected
+Method name Is :         SMTP::connected
+Line No Is :             590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+
+
+
+
+
+
+
+
+2019-02-16 07:34:10 CLIENT -> SERVER: STARTTLS
+
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          startTLS
+Method name Is :   SMTP::startTLS
+Line No Is :            395
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          hello
+Method name Is :   SMTP::hello
+Line No Is :            734
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendHello
+Method name Is :   SMTP::sendHello
+Line No Is :            751
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:14 CLIENT -> SERVER: EHLO localhost
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendHello
+Method name Is :   SMTP::sendHello
+Line No Is :            754
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            770
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            782
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            781
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            785
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            774
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          parseHelloFields
+Method name Is :   SMTP::parseHelloFields
+Line No Is :            777
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpConnect
+Method name Is :   PHPMailer::smtpConnect
+Line No Is :            1955
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          authenticate
+Method name Is :   SMTP::authenticate
+Line No Is :            430
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          authenticate
+Method name Is :   SMTP::authenticate
+Line No Is :            437
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          authenticate
+Method name Is :   SMTP::authenticate
+Line No Is :            454
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          authenticate
+Method name Is :   SMTP::authenticate
+Line No Is :            459
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          authenticate
+Method name Is :   SMTP::authenticate
+Line No Is :            462
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          authenticate
+Method name Is :   SMTP::authenticate
+Line No Is :            462
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          authenticate
+Method name Is :   SMTP::authenticate
+Line No Is :            463
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:14 CLIENT -> SERVER: AUTH LOGIN
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1018
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:14 CLIENT -> SERVER: <credentials hidden>
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1018
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:15 CLIENT -> SERVER: <credentials hidden>
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpSend
+Method name Is :   PHPMailer::smtpSend
+Line No Is :            1783
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          mail
+Method name Is :   SMTP::mail
+Line No Is :            818
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:15 CLIENT -> SERVER: MAIL FROM:<subratpalhar92@gmail.com>
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpSend
+Method name Is :   PHPMailer::smtpSend
+Line No Is :            1793
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpSend
+Method name Is :   PHPMailer::smtpSend
+Line No Is :            1794
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recipient
+Method name Is :   SMTP::recipient
+Line No Is :            860
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2019-02-16 07:34:15 CLIENT -> SERVER: RCPT TO:<subratpalhar92@gmail.com>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpSend
+Method name Is :   PHPMailer::smtpSend
+Line No Is :            1799
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpSend
+Method name Is :   PHPMailer::smtpSend
+Line No Is :            1793
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpSend
+Method name Is :   PHPMailer::smtpSend
+Line No Is :            1793
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            642
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:16 CLIENT -> SERVER: DATA
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            666
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: Date: Sat, 16 Feb 2019 08:34:09 +0100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:16 CLIENT -> SERVER: To: Subrat1 <subratpalhar92@gmail.com>
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:16 CLIENT -> SERVER: From: Subrat <subratpalhar92@gmail.com>
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: Subject: Here is the subject
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+2019-02-16 07:34:16 CLIENT -> SERVER: Message-ID: <j9MfnkVLJA8B0vG8kUqBoLyGkvK2tUItWuXFSLdqjo@localhost>
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: X-Mailer: PHPMailer 6.0.7 (https://github.com/PHPMailer/PHPMailer)
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: MIME-Version: 1.0
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: Content-Type: multipart/alternative;
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: boundary="b1_j9MfnkVLJA8B0vG8kUqBoLyGkvK2tUItWuXFSLdqjo"
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            672
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: 
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: This is a multi-part message in MIME format.
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: --b1_j9MfnkVLJA8B0vG8kUqBoLyGkvK2tUItWuXFSLdqjo
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: Content-Type: text/plain; charset=us-ascii
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: 
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: This is the body in plain text for non-HTML mail clients
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: 
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: --b1_j9MfnkVLJA8B0vG8kUqBoLyGkvK2tUItWuXFSLdqjo
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: Content-Type: text/html; charset=us-ascii
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          data
+Method name Is :   SMTP::data
+Line No Is :            701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: 
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: This is the HTML message bodyin bold!
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: 
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: 
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: --b1_j9MfnkVLJA8B0vG8kUqBoLyGkvK2tUItWuXFSLdqjo--
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             670
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           data
+Method name Is :         SMTP::data
+Line No Is :             701
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: 
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           sendCommand
+Method name Is :         SMTP::sendCommand
+Line No Is :             891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           connected
+Method name Is :         SMTP::connected
+Line No Is :             589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           connected
+Method name Is :         SMTP::connected
+Line No Is :             590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           client_send
+Method name Is :         SMTP::client_send
+Line No Is :             1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           edebug
+Method name Is :         SMTP::edebug
+Line No Is :             231
+
+
+
+
+
+2019-02-16 07:34:16 CLIENT -> SERVER: .
+
+
+
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1295
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          getLastReply
+Method name Is :   SMTP::getLastReply
+Line No Is :            1096
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1300
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1302
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1302
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1302
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1302
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1302
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1302
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          recordLastTransactionID
+Method name Is :   SMTP::recordLastTransactionID
+Line No Is :            1302
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          getLastTransactionID
+Method name Is :   SMTP::getLastTransactionID
+Line No Is :            1323
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :         PHPMailer
+functionc Is :          smtpSend
+Method name Is :   PHPMailer::smtpSend
+Line No Is :            1816
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          quit
+Method name Is :   SMTP::quit
+Line No Is :            838
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          sendCommand
+Method name Is :   SMTP::sendCommand
+Line No Is :            891
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            589
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          connected
+Method name Is :   SMTP::connected
+Line No Is :            590
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1014
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          client_send
+Method name Is :   SMTP::client_send
+Line No Is :            1020
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+
+
+
+2019-02-16 07:34:17 CLIENT -> SERVER: QUIT
+
+
+
+
+
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1110
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1118
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1123
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          get_lines
+Method name Is :   SMTP::get_lines
+Line No Is :            1139
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          quit
+Method name Is :   SMTP::quit
+Line No Is :            841
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          close
+Method name Is :   SMTP::close
+Line No Is :            616
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          setError
+Method name Is :   SMTP::setError
+Line No Is :            1194
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          close
+Method name Is :   SMTP::close
+Line No Is :            620
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            231
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          edebug
+Method name Is :   SMTP::edebug
+Line No Is :            232
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :         SMTP
+functionc Is :          close
+Method name Is :   SMTP::close
+Line No Is :            616
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           setError
+Method name Is :         SMTP::setError
+Line No Is :             1194
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :           PHPMailer
+functionc Is :           smtpSend
+Method name Is :         PHPMailer::smtpSend
+Line No Is :             1821
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :           PHPMailer
+functionc Is :           doCallback
+Method name Is :         PHPMailer::doCallback
+Line No Is :             4485
+
+
+
+Message has been sent
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :           PHPMailer
+functionc Is :           __destruct
+Method name Is :         PHPMailer::__destruct
+Line No Is :             771
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :           PHPMailer
+functionc Is :           smtpClose
+Method name Is :         PHPMailer::smtpClose
+Line No Is :             1990
+
+The File Is :            /opt/lampp/htdocs/mail/PHPMailer.php
+The Class IS :           PHPMailer
+functionc Is :           smtpClose
+Method name Is :         PHPMailer::smtpClose
+Line No Is :             1991
+
+The File Is :            /opt/lampp/htdocs/mail/SMTP.php
+The Class IS :           SMTP
+functionc Is :           connected
+Method name Is :         SMTP::connected
+Line No Is :             589
